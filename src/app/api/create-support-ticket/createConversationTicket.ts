@@ -75,12 +75,5 @@ export async function createConversationTicket(
     },
     body: data,
   });
-
-  // const conversationId = res.headers.get("Resource-ID");
-
-  // if (!res.ok || !conversationId) {
-  //   throw res
-  // }
-
   return res;
 }
