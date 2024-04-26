@@ -1,6 +1,6 @@
 import {
-  CreateConversationRequestBody,
-  Message,
+  type CreateConversationRequestBody,
+  type Message,
   InvalidRequest
 } from "./requestSchemaValidation";
 
@@ -17,7 +17,7 @@ function formatChatHistory(messages: Message[] | undefined | null): string {
 
   let formattedHistory = "<h4 style='margin-bottom: .4rem;'><u> Chat History </u></h4>";
 
-  messages.forEach((message) => {
+  for (const message of messages) {
     // Determine if the message is from User or AI Assistant
     if (message.role === "user") {
       formattedHistory += "<h6 style='font-size: .9rem;'> Question </h6>";
@@ -28,20 +28,17 @@ function formatChatHistory(messages: Message[] | undefined | null): string {
     // Strip footnotes [^1] from the message content
     const cleanContent = message.content ? message.content.replace(/\[\^(\d+)\]/g, '') : '';
     formattedHistory += `<p> ${cleanContent} </p><br/>`;
-  });
+  }
 
   return formattedHistory;
 }
 
-// Create a conversation with the Help Scout API
+// Create a conversation with the Zendesk API
 export async function createConversationTicket(
   body: CreateConversationRequestBody,
   accessToken: string
 ) {
   const { formDetails, chatSession, client } = body;
-
-  if (!process.env.HELPSCOUT_MAILBOX_ID) throw new Error("HELPSCOUT_MAILBOX_ID is undefined");
-  const mailboxId = parseInt(process.env.HELPSCOUT_MAILBOX_ID, 10);
 
   const hasInitialMessage = chatSession && chatSession.messages.length > 0;
   const subject = hasInitialMessage ? chatSession?.messages[0].content : formDetails.additionalDetails  // subject of the conversation
@@ -51,51 +48,32 @@ export async function createConversationTicket(
     ? `${process.env.INKEEP_CHAT_PREVIEW_ROOT}?chatId=${chatSession.chatSessionId}`
     : null;
 
-  const data = {
-    subject,
-    customer: {
+  const data = JSON.stringify({
+  ticket: {
+    requester: {
+      name: formDetails.firstName,
       email: formDetails.email,
-      firstName: formDetails.firstName,
     },
-    mailboxId,
-    type: 'email',
-    status: 'active',
-    threads: [
-      { // shows as initial message of conversation
-        type: "customer",
-        customer: {
-          email: formDetails.email,
-        },
-        attachments: formDetails.files,
-        text: `
-          ${formatItem("Additional details", formDetails.additionalDetails)}
-          ${formatChatHistory(chatSession?.messages)}
-        `
-      },
-      { // internal facing details
-        type: "note",
-        text: `
-          ${formatItem("Inkeep Chat URL", inkeepViewChatUrl)}
-          ${formatItem("Client (Interaction Point)", client.currentUrl)}
-        `,
-      }
-    ],
-  };
+    comment: {
+      html_body: `
+        ${formatItem("Additional details", formDetails.additionalDetails)}
+        ${formatChatHistory(chatSession?.messages)}
+        ${formatItem("Inkeep Chat URL", inkeepViewChatUrl)}
+        ${formatItem("Client (Interaction Point)", client.currentUrl)}
+      `,
+      public: false,
+    },
+    subject
+  }
+});
 
-  const res = await fetch("https://api.helpscout.net/v2/conversations", {
+  const res = await fetch(`${process.env.ZENDESK_DOMAIN}/api/v2/tickets`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`, // Include Basic Auth header
+      Authorization: `Basic ${accessToken}`, // Include Basic Auth header
     },
-    body: JSON.stringify(data),
+    body: data,
   });
-
-  const conversationId = res.headers.get("Resource-ID");
-
-  if (!res.ok || !conversationId) {
-    throw res
-  }
-
-  return res
+  return res;
 }
