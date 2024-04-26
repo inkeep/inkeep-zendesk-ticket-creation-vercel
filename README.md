@@ -1,4 +1,4 @@
-# HelpScout Create Ticket Example
+# Inkeep to Zendesk Create Ticket Example
 
 ## Getting Started
 
@@ -6,7 +6,7 @@
 Clone this repository:
 
 ```bash
-git clone https://github.com/inkeep/helpscout-ticket-creation-vercel
+git clone https://github.com/inkeep/inkeep-zendesk-ticket-creation-with-vercel
 ```
 
 Setup dependencies:
@@ -28,82 +28,63 @@ If you'd like to add an API route to an existing Next.js project:
 2. Install deps via `pnpm add @vercel/edge-config zod`
 3. Follow the rest of these instructions to get the .env variables you need
 
-## Create HelpScout application
+## Create Zendesk API Token
 
-1. Login to HelpScout
+# [How to Generate Zendesk API Token in Inkeep](https://app.tango.us/app/workflow/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
 
-2. Open your profile picture then select **Your Profile**.
 
-3. Click on the **My Apps** tab.
 
-4. Click on **Create My App**
 
-6. Provide an **App Name**, like "Inkeep Create Ticket Flow" 
+## [Login to your Zendesk Dashboard](https://d3v-inkeep.zendesk.com/agent/dashboard)
+Usually you have a specific subdomain such as https://<your-company-name>.zendesk.com/
 
-7. Provide any value for **Redirection URL**, like "https://{mydoamin}.com", it's not used.
 
-8. Copy the **App ID** and **App Secret** fields into your env variables
+### 1. Click on the Settings Gear icon (Admin)
+![Step 1 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/b20da51d-69d4-4afc-8669-a5411a2de2ad/8cef8a63-36da-4a0d-8c85-e5975e692619.png?crop=focalpoint&fit=crop&fp-x=0.0292&fp-y=0.3881&fp-z=2.7109&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=10&mark-y=326&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz0xNzAmaD0xNTAmZml0PWNyb3AmY29ybmVyLXJhZGl1cz0xMA%3D%3D)
 
-```
-HELPSCOUT_APP_ID="<HELPSCOUT_APP_ID>"
-HELPSCOUT_APP_SECRET="<HELPSCOUT_APP_SECRET>"
-```
 
-## Get a mailbox ID
+### 2. Click on Go to Admin Center
 
-1. Open **Inbox** tab on HelpScout
+API Tokens can only be created from within the Admin Center
 
-2. On left bottom corner open click on the **Gear Icon** and select **Edit Inbox**
+![Step 2 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/12fab057-3ae6-4308-9e8d-a0fa7e8c7a0b/e8680be4-182d-4a08-aa65-aa74ededf1db.png?crop=focalpoint&fit=crop&fp-x=0.3594&fp-y=0.2095&fp-z=2.4084&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=434&mark-y=374&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz0zMzMmaD01NSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
 
-3. Copy the ID from the page URL:
 
-```bash
-https://secure.helpscout.net/settings/inbox/<HELPSCOUT_MAILBOX_ID>/
-```
+### 3. Click on Apps and integrations
+![Step 3 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/4ece5c1b-4d74-4464-a453-14d129239004/78317b76-bfce-41a0-bd15-3aa39709ae3a.png?crop=focalpoint&fit=crop&fp-x=0.1010&fp-y=0.5695&fp-z=2.0167&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=7&mark-y=346&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz00NzQmaD0xMTImZml0PWNyb3AmY29ybmVyLXJhZGl1cz0xMA%3D%3D)
 
-Add it as an env variable:
 
-```
-HELPSCOUT_MAILBOX_ID="<HELPSCOUT_MAILBOX_ID>"
-```
+### 4. Click on Zendesk API
+![Step 4 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/581eed33-787b-4977-b5b6-819062dcfeab/586ac00e-91f1-40be-8faf-e4154b08b300.png?crop=focalpoint&fit=crop&fp-x=0.1075&fp-y=0.7153&fp-z=2.2738&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=103&mark-y=362&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz0zODEmaD04MCZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
 
-## Help Scout Access Tokens
-HelpScout [access tokens](https://developer.helpscout.com/mailbox-api/overview/authentication/#client-credentials-flow) received via client-credentials (service-to-service authentication) expire after two days. To avoid fetching a new access token on every request, we'll use Vercel's Edge Config to cache the latest access token, which is optimized for scenarios with high read and low write operations.
 
-### Create Edge Config Store
-Create an Edge Config Store instance for your project. See [here](https://vercel.com/docs/storage/edge-config/get-started#quickstart). 
+### 5. Click on Add API token
 
-Once created, copy the `ID` of the Edge Config Store and add it as an env variable:
+If you don't see "Add API token" be sure to enable Token access via the toggle switch.
 
-```
-EDGE_CONFIG_ID="<EDGE_CONFIG_ID>"
-```
+![Step 5 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/302a38bd-cde7-4821-993f-a958468cb78a/4b90a039-812c-4218-96f6-bfeab0d41d4c.png?crop=focalpoint&fit=crop&fp-x=0.8848&fp-y=0.5006&fp-z=2.8908&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=609&mark-y=348&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz0zODQmaD0xMDcmZml0PWNyb3AmY29ybmVyLXJhZGl1cz0xMA%3D%3D)
 
-Creating an Edge Config Store will also automatically create an `EDGE_CONFIG` env variable in your Vercel project. This is used for reading from the Store using the `@vercel/edge-config` SDK.
 
-For local development, you can visit your project's **Settings** > **Environment Variables** and copy it.
+### 6. Give the API token a name you will remember such as "Inkeep Ticket Creation"
+![Step 6 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/7f4c1a24-ec87-4967-9f1d-5dcf7cae713e/ba7a2fbd-46e5-4ed4-978d-e63462c50213.png?crop=focalpoint&fit=crop&fp-x=0.5952&fp-y=0.5936&fp-z=1.3925&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=76&mark-y=371&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz0xMDQ3Jmg9NjImZml0PWNyb3AmY29ybmVyLXJhZGl1cz0xMA%3D%3D)
 
-Set it as an env variable:
 
-```
-EDGE_CONFIG="<EDGE_CONFIG>"
-```
+### 7. Click on Copy
+![Step 7 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/cbe02d75-8980-4cb1-8b70-61104bc64c35/19732f6d-d979-46e7-a189-f62210a34790.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=1001&mark-y=566&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz04OSZoPTQ0JmZpdD1jcm9wJmNvcm5lci1yYWRpdXM9MTA%3D)
 
-### Vercel API Access Token
 
-Next, create a Vercel API access token. See [here](https://vercel.com/docs/rest-api#creating-an-access-token). This is used to write to the Edge Config. Set the scope to the Vercel team you'd like it to apply to.
+### 8. Make sure to copy and store this token. It won't be shown again after you click Save or leave this page.
+![Step 8 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/ac3127b3-3278-41ef-95ba-4c8e4e8eb0b2/82ed5d4d-2179-41df-bebe-af2fa8736506.png?crop=focalpoint&fit=crop&fp-x=0.5561&fp-y=0.7755&fp-z=1.4300&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=162&mark-y=529&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz04NzYmaD0zMyZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
 
-Add it as env variable:
 
-```
-VER_API_ACCESS_TOKEN="<VER_API_ACCESS_TOKEN>"
-```
+### 9. Click on Save
+![Step 9 screenshot](https://images.tango.us/workflows/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22/steps/5dde2a83-c258-4212-aab2-ef3d92d70b67/54efcbad-ac46-48f3-8c32-9f31979c565b.png?crop=focalpoint&fit=crop&fp-x=0.8721&fp-y=0.8588&fp-z=4.0000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=425&mark-y=313&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTYlMkNGRjc0NDImdz0zNTAmaD0xNzcmZml0PWNyb3AmY29ybmVyLXJhZGl1cz0xMA%3D%3D)
 
-Lastly, set the Vercel Team ID for where your project is located. You can find this under **Settings** under your Team in the [Vercel dashboard](https://vercel.com)
 
-```
-VER_TEAM_ID="<VER_TEAM_ID>"
-```
+### 10. Set the environment variable on your deployed Vercel function ZENDESK_API_TOKEN to the value you have just copied.
+
+<br/>
+
 
 ## Inkeep Preview URL (optional)
 If you'd like to attach a link to the Inkeep Dashboard view of the AI-chat for reference, then set the following:
@@ -118,9 +99,9 @@ pnpm dev
 ```
 
 ## API Routes
-`/api/create-support-ticket` - Create a new conversation/ticket in your inbox.
+`/api/create-support-ticket` - Create a new ticket in your inbox.
 
-See the [HelpScout Create Conversation API](https://developer.helpscout.com/mailbox-api/endpoints/conversations/create/) for full customization.
+See the [Zendesk Tickets API](https://developer.zendesk.com/api-reference/ticketing/introduction/) for full customization.
 
 
 ### Example Request
