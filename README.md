@@ -28,6 +28,15 @@ If you'd like to add an API route to an existing Next.js project:
 2. Install deps via `pnpm add @vercel/edge-config zod`
 3. Follow the rest of these instructions to get the .env variables you need
 
+You will need to provide values for all env variables shown in .env.example:
+
+```
+INKEEP_CHAT_PREVIEW_ROOT="<INKEEP_CHAT_PREVIEW_ROOT>" # instructions below in README
+ZENDESK_DOMAIN="<ZENDESK_DOMAIN>" # Your zendesk domain
+ZENDESK_EMAIL_ADDRESS="<EMAIL_OF_VALID_USER_TO_SUBMIT_TICKETS" # needs to be a valid user
+ZENDESK_API_TOKEN="<ZENDESK_API_TOKEN>" # See below for instructions on how to create an API token
+```
+
 ## Create Zendesk API Token
 
 # [How to Generate Zendesk API Token in Inkeep](https://app.tango.us/app/workflow/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
