@@ -12,7 +12,7 @@ git clone https://github.com/inkeep/inkeep-zendesk-ticket-creation-with-vercel
 Setup dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 Copy the example env file to make a `.env.development.local` for local development.
@@ -102,7 +102,7 @@ This will be added as an internal-facing note to the supprot conversation.
 
 ## Run locally
 ```
-pnpm dev
+npm dev
 ```
 
 ## API Routes
