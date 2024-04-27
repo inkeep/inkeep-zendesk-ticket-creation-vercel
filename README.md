@@ -43,7 +43,7 @@ ZENDESK_API_TOKEN="<ZENDESK_API_TOKEN>" # See below for instructions on how to c
 
 
 #### Login to your Zendesk Dashboard
-Usually you have a specific subdomain such as https://<your-company-name>.zendesk.com/
+Usually you have a specific subdomain such as `https://<your-company-name>.zendesk.com/`
 
 
 #### 1. Click on the Settings Gear icon (Admin)
