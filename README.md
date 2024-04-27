@@ -39,12 +39,10 @@ ZENDESK_API_TOKEN="<ZENDESK_API_TOKEN>" # See below for instructions on how to c
 
 ## Create Zendesk API Token
 
-# [How to Generate Zendesk API Token in Inkeep](https://app.tango.us/app/workflow/b8be3acb-ff91-4ad0-b539-b8f5ec6a3c22?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
+## How to Generate Zendesk API Token in Inkeep
 
 
-
-
-## [Login to your Zendesk Dashboard](https://d3v-inkeep.zendesk.com/agent/dashboard)
+## Login to your Zendesk Dashboard
 Usually you have a specific subdomain such as https://<your-company-name>.zendesk.com/
 
 
