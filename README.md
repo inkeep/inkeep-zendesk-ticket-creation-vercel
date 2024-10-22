@@ -98,7 +98,7 @@ If you'd like to attach a link to the Inkeep Dashboard view of the AI-chat for r
 ```
 INKEEP_CHAT_PREVIEW_ROOT=https://portal.inkeep.com/<ORG_ALIAS>/projects/<PROJECT_ID>/chat/sandbox
 ```
-This will be added as an internal-facing note to the supprot conversation.
+This will be added as an internal-facing note to the support conversation.
 
 ## Run locally
 ```
